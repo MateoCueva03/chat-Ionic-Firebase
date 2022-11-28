@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-title class="title1">Chat de amigos</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="medium" (click)="logout()">
+        <ion-icon name="log-out-sharp"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content #content padding id="container">
+  <ion-card *ngFor="let messageData of messageList" style="background-color: transparent;">
+    <ion-card-header>
+      {{messageData.Name}}:
+    </ion-card-header>
+    <ion-card-content>
+      {{messageData.Message}}
+    </ion-card-content>
+    <ion-card-content>
+      <ion-img width="80" height="80" [src]="messageData.Image" style="height: 40%; width: 40%;"></ion-img>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+<ion-card-content class="imageContainerButton" *ngIf="!isUploading && !isUploaded">
+  <ion-button class="imageContainer">
+    <input id="uploadBtn" type="file" class="upload" (change)="uploadFile($event.target.files)" />
+  </ion-button>
+</ion-card-content>
+
+<ion-card *ngIf="isUploading && !isUploaded">
+
+  <ion-card-content>
+    <div *ngIf="percentage | async as pct">
+      Imagen Cargada
+    </div>
+    <div *ngIf="snapshot | async as snap">
+
+    </div>
+  </ion-card-content>
+</ion-card>
+
+<ion-card *ngIf="!isUploading && isUploaded">
+  <ion-card-header>
+    <b>Imagen cargada</b>
+  </ion-card-header>
+
+</ion-card>
+<ion-footer id="final-scroll">
+
+  <ion-toolbar>
+    <ion-input placeholder="Escribe un mensaje" [(ngModel)]="messageData.Message"></ion-input>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="CreateRecord()">
+        <ion-icon name="send"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-footer>

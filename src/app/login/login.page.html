@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar color="light" style="text-align: center;">
+    <ion-title >Bienvenido</ion-title>
+    
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding" >
+  
+ 
+    <p style="text-align: center;">Inicia Sesión o Registrate</p>
+    <img style="margin-bottom: 5%; height: 40%;" src="https://cdn-icons-png.flaticon.com/512/1728/1728853.png" alt="">
+  
+
+  <form class="form" [formGroup]="validations_form" (ngSubmit)="loginUser(validations_form.value)">
+
+    <ion-item>
+      <ion-label position="floating">Correo eletronico</ion-label>
+      <ion-input type="text" formControlName="email"></ion-input>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.email">
+        <div class="error-message"
+          *ngIf="validations_form.get('email').hasError(validation.type) && (validations_form.get('email').dirty || validations_form.get('email').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input type="password" formControlName="password" class="form-controll" required></ion-input>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.password">
+        <div class="error-message"
+          *ngIf="validations_form.get('password').hasError(validation.type) && (validations_form.get('password').dirty || validations_form.get('password').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+    <br>
+    <br>
+    <br>
+    <ion-button color="medium"  type="submit" [disabled]="!validations_form.valid" expand="block" style="color: rgb(22, 22, 178);">Iniciar Sesión</ion-button>
+    <ion-button color="medium" (click)="goToRegisterPage()" expand="block" style="color: rgb(22, 22, 178);">Registrarse</ion-button>
+    <label class="error-message">{{errorMessage}}</label>
+  </form>
+  
+</ion-content>
